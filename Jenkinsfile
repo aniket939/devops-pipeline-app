@@ -2,10 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NODE_HOME = tool name: 'Node22', type: 'NodeJS'
         SONAR_SCANNER_HOME = 'C:\\SonarScanner'
-        // Combine both paths into one PATH
-        PATH = "${env.NODE_HOME}\\bin;${env.SONAR_SCANNER_HOME}\\bin;${env.PATH}"
+        // NODE_HOME will be set inside the script block
     }
 
     stages {
@@ -17,9 +15,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'npm install'
-                bat 'npm run lint || echo "Lint warnings found, continuing..."'
-                bat 'docker build -t devops-pipeline-app .'
+                script {
+                    // Set NodeJS tool and prepend to PATH
+                    def NODE_HOME = tool name: 'Node22', type: 'NodeJS'
+                    env.PATH = "${NODE_HOME}\\bin;${env.SONAR_SCANNER_HOME}\\bin;${env.PATH}"
+
+                    // Run commands
+                    bat 'npm install'
+                    bat 'npm run lint || echo "Lint warnings found, continuing..."'
+                    bat 'docker build -t devops-pipeline-app .'
+                }
             }
         }
 
