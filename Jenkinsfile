@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODE_HOME = tool name: 'NodeJS', type: 'NodeJS'
+        NODE_HOME = tool name: 'Node22', type: 'NodeJS'
         SONAR_SCANNER_HOME = 'C:\\SonarScanner'
         // Combine both paths into one PATH
         PATH = "${env.NODE_HOME}\\bin;${env.SONAR_SCANNER_HOME}\\bin;${env.PATH}"
