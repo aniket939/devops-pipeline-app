@@ -27,9 +27,9 @@ pipeline {
             }
         }
 
-        stage('Selenium E2E Test') {
+        stage('Selenium Tests') {
             steps {
-                sh 'npm run selenium-test'
+                sh 'npm run test:selenium'
             }
         }
 
