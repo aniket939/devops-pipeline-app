@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1759050485293" clover="3.2.0">
-  <project timestamp="1759050485293" name="All files">
+<coverage generated="1759065260489" clover="3.2.0">
+  <project timestamp="1759065260489" name="All files">
     <metrics statements="35" coveredstatements="33" conditionals="16" coveredconditionals="11" methods="12" coveredmethods="9" elements="63" coveredelements="53" complexity="0" loc="35" ncloc="35" packages="1" files="1" classes="1"/>
     <file name="index.js" path="C:\Users\DELL\devops-pipeline-app\index.js">
       <metrics statements="35" coveredstatements="33" conditionals="16" coveredconditionals="11" methods="12" coveredmethods="9"/>
