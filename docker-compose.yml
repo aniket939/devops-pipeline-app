@@ -1,7 +1,10 @@
-version: '3'
+version: "3.8"
+
 services:
   app:
+    image: devops-pipeline-app
     build: .
-    container_name: devops-pipeline-app
     ports:
       - "3000:3000"
+    environment:
+      JWT_SECRET: "mysecret"
