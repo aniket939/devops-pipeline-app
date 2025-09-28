@@ -3,10 +3,9 @@ pipeline {
 
     environment {
         NODE_HOME = tool name: 'NodeJS', type: 'NodeJS'
-        PATH = "${env.NODE_HOME}/bin;${env.PATH}"
-        // Define SonarScanner path if installed manually
         SONAR_SCANNER_HOME = 'C:\\SonarScanner'
-        PATH = "${env.SONAR_SCANNER_HOME}\\bin;${env.PATH}"
+        // Combine both paths into one PATH
+        PATH = "${env.NODE_HOME}\\bin;${env.SONAR_SCANNER_HOME}\\bin;${env.PATH}"
     }
 
     stages {
@@ -32,14 +31,12 @@ pipeline {
 
         stage('Selenium Tests') {
             steps {
-                // Failures in Selenium should not stop the pipeline
                 bat 'npm run test:selenium || echo "Selenium test failed, continuing..."'
             }
         }
 
         stage('Code Quality') {
             steps {
-                // Failures in SonarScanner should not stop the pipeline
                 bat """
                 if exist "%SONAR_SCANNER_HOME%\\bin\\sonar-scanner.bat" (
                     sonar-scanner -Dsonar.projectKey=devops-pipeline-app -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN% || echo "SonarScanner failed, continuing..."
