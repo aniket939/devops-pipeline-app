@@ -25,7 +25,7 @@ pipeline {
             steps {
                 bat 'npm install'
                 bat 'npm run lint'
-                bat 'docker build -t $IMAGE_NAME .'
+                bat 'docker build -t %IMAGE_NAME% .'
             }
         }
 
@@ -43,13 +43,13 @@ pipeline {
 
         stage('Code Quality') {
             steps {
-                bat "$SONARQUBE/bin/sonar-scanner -Dsonar.projectKey=devops-pipeline-app -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN"
+                bat "%SONARQUBE%/bin/sonar-scanner -Dsonar.projectKey=devops-pipeline-app -Dsonar.sources=. -Dsonar.host.url=%SONAR_HOST% -Dsonar.login=%SONAR_TOKEN%"
             }
         }
 
         stage('Security Scan') {
             steps {
-                bat "docker scan $IMAGE_NAME || echo 'Security scan completed'"
+                bat "docker scan %IMAGE_NAME% || echo 'Security scan completed'"
             }
         }
 
@@ -62,8 +62,8 @@ pipeline {
 
         stage('Release') {
             steps {
-                bat "docker tag $IMAGE_NAME <dockerhub-username>/$IMAGE_NAME:v1.0"
-                bat "docker push <dockerhub-username>/$IMAGE_NAME:v1.0"
+                bat "docker tag %IMAGE_NAME% <dockerhub-username>/%IMAGE_NAME%:v1.0"
+                bat "docker push <dockerhub-username>/%IMAGE_NAME%:v1.0"
             }
         }
 
