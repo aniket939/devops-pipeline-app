@@ -1,5 +1,5 @@
 import { Builder, By } from 'selenium-webdriver';
-import chrome from 'selenium-webdriver/chrome';
+import chrome from 'selenium-webdriver/chrome.js';
 
 async function runTest() {
     let driver = await new Builder().forBrowser('chrome')
